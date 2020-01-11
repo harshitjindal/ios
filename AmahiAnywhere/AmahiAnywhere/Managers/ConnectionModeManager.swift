@@ -29,11 +29,13 @@ class ConnectionModeManager {
     static let shared = ConnectionModeManager()
     
     func setupReachability(_ hostName: String?) {
-        if let hostName = hostName {
-            reachability = Reachability(hostname: hostName)
-        } else {
-            reachability = Reachability()
-        }
+        do {
+            if let hostName = hostName {
+                try reachability = Reachability(hostname: hostName)
+            } else {
+                try reachability = Reachability()
+            }
+        } catch {}
         
         NotificationCenter.default.addObserver(
             self,
